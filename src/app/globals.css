@@ -1,26 +1,201 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* `dark:` utilities follow the .dark class on <html> (set by ThemeProvider / the inline script in layout). */
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Odeslo design tokens (from Figma "Odeslo v3") */
+@theme {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Neutrals */
+  --color-ink: #1c1c22;
+  --color-ink-soft: #34343c;
+  --color-night: #2a2a32;
+  --color-night-line: #3a3a44;
+  --color-night-muted: #bdbdc6;
+  --color-night-count: #8c8c96;
+  --color-panel: #f6f6f8;
+  --color-mist: #f1f1f4;
+  --color-line: #e7e7ec;
+  --color-muted: #6e6e78;
+  --color-body: #4a4a54;
+  --color-hint: #757575;
+  --color-arrow: #9c9ca6;
+  --color-off: #d6d6dc;
+  --color-dash: #c9c9d0;
+  --color-row-hi: #faf9ff;
+
+  /* Accents */
+  --color-violet: #7b6ef6;
+  --color-violet-soft: #a99ffb;
+  --color-violet-mid: #b8aefa;
+  --color-rose-soft: #f59bb0;
+  --color-mint: #9ed79a;
+
+  /* Pastel pairs: background / foreground / border */
+  --color-blue-bg: #e4ebf7;
+  --color-blue-fg: #3558c4;
+  --color-blue-line: #cfdcf1;
+  --color-lilac-bg: #ece9fc;
+  --color-lilac-fg: #5446d9;
+  --color-lilac-line: #d9d3fb;
+  --color-green-bg: #e1f1dc;
+  --color-green-fg: #2f7a34;
+  --color-yellow-bg: #f6f7cf;
+  --color-yellow-fg: #86690a;
+  --color-yellow-line: #e3e59a;
+  --color-pink-bg: #fbe3ec;
+  --color-pink-fg: #c2334d;
+  --color-peach-bg: #fcebdd;
+  --color-peach-fg: #b5561e;
+
+  --animate-fade-in: fade-in 160ms ease-out;
+  --animate-slide-up: slide-up 200ms ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+/*
+ * Dark mode: the same tokens, new values (ThemeProvider puts .dark on <html>).
+ * Every bg-ink / text-white / bg-white pair flips together, so buttons and chips stay readable.
+ */
+:root { color-scheme: light; }
+:root.dark {
+  color-scheme: dark;
+  /* Surfaces: page < panel < card (bg-white) < mist (inputs, chips) */
+  --color-white: #1a1a21;
+  --color-ink: #f1f1f5;
+  --color-ink-soft: #d4d4dc;
+  --color-panel: #121217;
+  --color-mist: #25252e;
+  --color-line: #30303b;
+  --color-muted: #9b9ba8;
+  --color-body: #c3c3cd;
+  --color-hint: #8a8a96;
+  --color-arrow: #7c7c88;
+  --color-off: #44444f;
+  --color-dash: #44444f;
+  --color-row-hi: #1f1d33;
+  --color-blue-bg: #1c2742;
+  --color-blue-fg: #8fb0ff;
+  --color-blue-line: #2b3b63;
+  --color-lilac-bg: #28244b;
+  --color-lilac-fg: #b8afff;
+  --color-lilac-line: #3b3669;
+  --color-green-bg: #1b3220;
+  --color-green-fg: #86d68c;
+  --color-yellow-bg: #38340f;
+  --color-yellow-fg: #e6cc66;
+  --color-yellow-line: #504b19;
+  --color-pink-bg: #3e1c28;
+  --color-pink-fg: #ff8fa6;
+  --color-peach-bg: #3d2a1b;
+  --color-peach-fg: #ffb07c;
 }
+
+/*
+ * Surfaces that are dark in BOTH modes (login side panel, super-admin menu, "Needs you" cards):
+ * put them back on the light-mode token values so ink / white / night colours read as designed.
+ */
+.deep, .light-only {
+  --color-white: #ffffff;
+  --color-ink: #1c1c22;
+  --color-ink-soft: #34343c;
+  --color-panel: #f6f6f8;
+  --color-mist: #f1f1f4;
+  --color-line: #e7e7ec;
+  --color-muted: #6e6e78;
+  --color-body: #4a4a54;
+  --color-hint: #757575;
+  --color-arrow: #9c9ca6;
+  --color-off: #d6d6dc;
+  --color-dash: #c9c9d0;
+  --color-row-hi: #faf9ff;
+  --color-blue-bg: #e4ebf7;
+  --color-blue-fg: #3558c4;
+  --color-blue-line: #cfdcf1;
+  --color-lilac-bg: #ece9fc;
+  --color-lilac-fg: #5446d9;
+  --color-lilac-line: #d9d3fb;
+  --color-green-bg: #e1f1dc;
+  --color-green-fg: #2f7a34;
+  --color-yellow-bg: #f6f7cf;
+  --color-yellow-fg: #86690a;
+  --color-yellow-line: #e3e59a;
+  --color-pink-bg: #fbe3ec;
+  --color-pink-fg: #c2334d;
+  --color-peach-bg: #fcebdd;
+  --color-peach-fg: #b5561e;
+}
+.light-only { color-scheme: light; }
+
+html,
+body {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+body { transition: background-color 0.2s ease, color 0.2s ease; }
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Thin scrollbars inside panels */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-off) transparent;
+}
+
+/* Calendar popover (react-day-picker) in Odeslo colours */
+.odl-pop .rdp-root {
+  --rdp-accent-color: var(--color-ink);
+  --rdp-accent-background-color: var(--color-lilac-bg);
+  --rdp-day-height: 38px;
+  --rdp-day-width: 38px;
+  --rdp-day_button-height: 36px;
+  --rdp-day_button-width: 36px;
+  --rdp-day_button-border-radius: 12px;
+  --rdp-selected-border: 0;
+  --rdp-today-color: var(--color-violet);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0;
+}
+.odl-pop .rdp-month_caption { font-size: 14px; font-weight: 700; }
+.odl-pop .rdp-weekday { font-size: 11px; font-weight: 700; color: var(--color-muted); text-transform: uppercase; }
+.odl-pop .rdp-day_button:hover:not([disabled]) { background: var(--color-lilac-bg); }
+.odl-pop .rdp-selected .rdp-day_button { background: var(--color-ink); color: var(--color-white); font-weight: 700; }
+.odl-pop .rdp-outside { opacity: 0.35; }
+.odl-pop .rdp-disabled { opacity: 0.25; }
+.odl-pop .rdp-chevron { fill: var(--color-ink); }
+.odl-pop .rdp-dropdown_root { font-weight: 700; }
+.odl-pop .rdp-dropdown { cursor: pointer; }
+.odl-pop .rdp-button_previous, .odl-pop .rdp-button_next { border-radius: 999px; }
+.odl-pop .rdp-button_previous:hover, .odl-pop .rdp-button_next:hover { background: var(--color-mist); }
+
+/* Browser bits that ignore tokens */
+:root.dark ::selection { background: #3b3669; color: #fff; }
+:root.dark input:-webkit-autofill { -webkit-box-shadow: 0 0 0 40px var(--color-mist) inset; -webkit-text-fill-color: var(--color-ink); }
+.dark .odl-pop { color-scheme: dark; }
+
+/* Dark-in-both-modes surfaces get a hairline so they separate from the dark page */
+:root.dark .deep { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07); }

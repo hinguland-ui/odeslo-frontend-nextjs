@@ -453,7 +453,7 @@ function Footer() {
               </div>
               <div className="fcol"><h4>Explore</h4><ul><li><a href="#top">Home</a></li><li><a href="#features">Features</a></li><li><a href="#why">Why Odeslo</a></li><li><a href="#faq">FAQ</a></li></ul></div>
               <div className="fcol"><h4>Get started</h4><ul><li><Link href={LOGIN}>Resident sign in</Link></li><li><Link href={LOGIN}>Vendor sign in</Link></li><li><Link href={LOGIN}>Society admin</Link></li><li><Link href={LOGIN}>Register society</Link></li></ul></div>
-              <div className="fcol"><h4>Legal</h4><ul><li><a href="#">Terms of service</a></li><li><a href="#">Privacy policy</a></li></ul></div>
+              <div className="fcol"><h4>Legal</h4><ul><li><a href="#">Terms of service</a></li><li><Link href="/privacy-policy">Privacy policy</Link></li><li><Link href="/delete-account">Delete account</Link></li></ul></div>
             </div>
             <div className="xb-footer_bottom hd-footer-bottom ul_li_between">
               <p>Copyright © 2026 <a href="#top">Odeslo,</a> All rights reserved.</p>

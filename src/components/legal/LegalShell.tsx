@@ -17,7 +17,9 @@ export function LegalShell({ title, updated, intro, children }: { title: string;
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
           <Link href="/" aria-label="Odeslo home"><BrandLogo height={30} /></Link>
           <nav className="flex gap-4 text-sm text-muted">
+            <Link href="/terms-and-conditions" className="hover:text-ink">Terms</Link>
             <Link href="/privacy-policy" className="hover:text-ink">Privacy</Link>
+            <Link href="/refund-policy" className="hover:text-ink">Refunds</Link>
             <Link href="/delete-account" className="hover:text-ink">Delete account</Link>
           </nav>
         </div>
